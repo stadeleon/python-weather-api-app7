@@ -15,9 +15,7 @@ def get_forecast_data(place, forecast_days):
     response = requests.get(url)
 
     if response.status_code != 200:
-        return {'dates': [],
-                'temperatures': [],
-                'sky': []}
+        raise Exception(response.json()['message'].title())
 
     data = response.json()
     forecast_list = data['list'][:forecast_days*8]
@@ -48,7 +46,7 @@ def prepare_images_list(data):
 
 
 if __name__ == "__main__":
-    place = 'London'
+    place = 'Londons'
     number_of_days = 3
     option = 'Temperature'
     data = get_forecast_data(place, number_of_days)
